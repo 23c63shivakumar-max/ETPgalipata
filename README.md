@@ -1,0 +1,2 @@
+# ETPgalipata
+About strees mangement 
