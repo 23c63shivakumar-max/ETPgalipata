@@ -1,0 +1,605 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Stress Management</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto&display=swap" rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/auth.css" />
+  <link rel="stylesheet" href="./css/reminder.css" />
+  <link rel="stylesheet" href="./css/time.css" />
+</head>
+
+<body>
+  <!-- 🧭 Header -->
+  <header>
+  <span id="menuIcon" class="menu-icon">☰</span>
+  <span class="header-title">Stress Management Portal</span>
+  <button id="headerLoginBtn" class="header-login">🔑 Login</button>
+  </header>
+
+  <!-- 🧭 Top Navigation Bar -->
+  <nav class="topnav">
+  <button class="nav-btn" data-target="stressPage">🧘‍♀️ Stress</button>
+  <button class="nav-btn" data-target="gamifiedPage">🎮 Relaxation</button>
+  <button class="nav-btn" data-target="peerSupportPage">🤝 Peer Support</button>
+  <button class="nav-btn" data-target="reminderPage">⏰ Reminders</button>
+  <button class="nav-btn" data-target="timeManagementPage">📅 Time</button>
+  </nav>
+
+  <!-- 📋 Sidebar Menu -->
+  <aside class="sidebar hidden" id="sidebar">
+    <h2>Student Menu</h2>
+  <button class="sidebar-link" data-target="homePage">🏠 Home</button>
+  <button class="sidebar-link" data-target="profilePage">👤 Profile</button>
+  <button class="sidebar-link" data-target="contactPage">📞 Contacts</button>
+  </aside>
+
+  <!-- Main content -->
+  <main>
+    <!-- Home Page -->
+    <section id="homePage">
+      <h2>Welcome to the Student Dashboard</h2>
+      <p>Manage your stress, time, and wellbeing in one place.</p>
+      <ul>
+        <li>🧘 Learn to manage stress effectively</li>
+        <li>🎯 Track your productivity goals</li>
+        <li>🤝 Get help from your peers</li>
+      </ul>
+    </section>
+
+    <!-- Profile -->
+    <section id="profilePage" class="hidden">
+      <h2>Your Profile</h2>
+      <p><strong>Name:</strong> <span id="studentName">John Doe</span></p>
+      <p><strong>Email:</strong> <span id="studentEmail">student@example.com</span></p>
+      <p><strong>Relaxation Points:</strong> <span id="pointsProfile">0</span></p>
+  <button id="editProfileBtn" class="action">Edit Profile</button>
+    </section>
+
+    <!-- Contact -->
+    <section id="contactPage" class="hidden">
+      <h2>Contact Support</h2>
+      <p>Need help? Reach us anytime:</p>
+      <ul>
+        <li>Email: support@stressfreecampus.com</li>
+        <li>Phone: +1 (800) 555-1234</li>
+      </ul>
+      <textarea id="contactMessage" rows="3" placeholder="Type your message..."></textarea>
+  <button id="contactSend" class="action">Send</button>
+    </section>
+
+    <!-- Login -->
+    <section id="loginPage" class="hidden">
+      <h2>Login</h2>
+      <label for="loginEmail">Email:</label>
+      <input type="email" id="loginEmail" placeholder="Enter email" />
+      <label for="loginPassword">Password:</label>
+      <input type="password" id="loginPassword" placeholder="Enter password" />
+      <button id="loginBtn" class="action">Sign In</button>
+      <p class="form-note">Don't have an account? <a href="#" id="showRegisterBtn">Register here</a></p>
+    </section>
+
+    <!-- Register -->
+    <section id="registerPage" class="hidden">
+      <h2>Create Account</h2>
+      <label for="registerName">Display Name:</label>
+      <input type="text" id="registerName" placeholder="Enter your name (optional)" />
+      <label for="registerEmail">Email:</label>
+      <input type="email" id="registerEmail" placeholder="Enter your email" />
+      <label for="registerPassword">Password:</label>
+      <input type="password" id="registerPassword" placeholder="Choose a password" />
+      <label for="registerConfirm">Confirm Password:</label>
+      <input type="password" id="registerConfirm" placeholder="Confirm your password" />
+      <button id="registerBtn" class="action">Create Account</button>
+      <p class="form-note">Already have an account? <a href="#" id="showLoginBtn">Login here</a></p>
+    </section>
+
+    <!-- 🔄 Stress Page (tabs + rich content) -->
+    <section id="stressPage" class="hidden">
+      <h2>Stress Management Strategies</h2>
+
+      <div class="strategy-tabs">
+        <button class="strategy-tab active" data-target="breathing">1) Deep Breathing</button>
+        <button class="strategy-tab" data-target="pmr">2) Progressive Muscle Relaxation</button>
+        <button class="strategy-tab" data-target="journaling">3) Journaling Your Thoughts</button>
+        <button class="strategy-tab" data-target="mindfulness">4) Mindfulness Meditation</button>
+        <button class="strategy-tab" data-target="activity">5) Regular Physical Activity</button>
+        <button class="strategy-tab" data-target="time">6) Time Management Tips</button>
+      </div>
+
+      <div class="strategy-panels">
+        <!-- 1) Deep Breathing -->
+        <div id="panel-breathing" class="strategy-panel show">
+          <h3>Deep Breathing Exercises</h3>
+          <p class="muted">Goal: Calm the nervous system and reduce anxiety.</p>
+          <div class="info">
+            Deep breathing helps activate your parasympathetic nervous system, reducing tension.
+          </div>
+
+          <div class="breath-row">
+            <div class="breath-anim">
+              <div class="bubble" id="breathBubble"></div>
+              <p id="breathCue">Inhale… 4</p>
+            </div>
+            <div class="breath-controls">
+              <label>Pattern:
+                <select id="breathPattern">
+                  <option value="4-7-8">4-7-8</option>
+                  <option value="4-4-4">Box 4-4-4</option>
+                  <option value="5-5-5">5-5-5</option>
+                </select>
+              </label>
+              <label>Session (minutes):
+                <input type="number" id="breathMinutes" value="5" min="1" max="30" />
+              </label>
+              <div class="btn-row">
+                <button class="action" id="breathStart">Start</button>
+                <button class="action ghost" id="breathPause">Pause</button>
+                <button class="action ghost" id="breathReset">Reset</button>
+              </div>
+              <label class="inline">
+                <input type="checkbox" id="breathAudio"> Audio guide (soft tone)
+              </label>
+              <div class="timer-line">
+                <div id="breathProgress"></div>
+              </div>
+              <p class="muted small">Timer: <span id="breathTime">00:00</span></p>
+            </div>
+          </div>
+
+          <div class="log-card">
+            <button class="action" id="breathSave">Save Session</button>
+            <div class="log-list">
+              <h4>Completion Log</h4>
+              <ul id="breathLog"></ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2) Progressive Muscle Relaxation -->
+        <div id="panel-pmr" class="strategy-panel">
+          <h3>Progressive Muscle Relaxation</h3>
+          <p class="muted">Goal: Release physical tension in body muscles.</p>
+
+          <div class="info">
+            Start from your <strong>feet</strong>, tense muscles for <strong>5 seconds</strong>, then slowly release.
+          </div>
+
+          <ol id="pmrSteps" class="pmr-steps">
+            <li>Feet & Calves</li>
+            <li>Thighs</li>
+            <li>Glutes & Hips</li>
+            <li>Stomach & Lower Back</li>
+            <li>Chest & Upper Back</li>
+            <li>Hands & Forearms</li>
+            <li>Upper Arms & Shoulders</li>
+            <li>Neck & Jaw</li>
+            <li>Eyes & Forehead</li>
+          </ol>
+
+          <div class="btn-row">
+            <button class="action" id="pmrPrev">◀ Prev</button>
+            <button class="action" id="pmrPlay">▶ Guide</button>
+            <button class="action" id="pmrNext">Next ▶</button>
+          </div>
+
+          <div class="feedback">
+            <label>How relaxed do you feel now?
+              <input type="range" id="pmrRelax" min="1" max="5" value="3" />
+              <span id="pmrRelaxVal">3</span>/5
+            </label>
+            <textarea id="pmrNotes" placeholder="Notes (e.g., Helped ease neck tension)"></textarea>
+            <button class="action" id="pmrSave">Save</button>
+          </div>
+
+          <div class="log-list">
+            <h4>PMR Log</h4>
+            <ul id="pmrLog"></ul>
+          </div>
+        </div>
+
+        <!-- 3) Journaling -->
+        <div id="panel-journaling" class="strategy-panel">
+          <h3>Journaling Your Thoughts</h3>
+          <p class="muted">Goal: Release negative thoughts and increase clarity.</p>
+
+          <div class="prompt">
+            <label for="journalPrompt">Daily Prompt</label>
+            <select id="journalPrompt">
+              <option>What made you feel stressed today?</option>
+              <option>What went well today?</option>
+              <option>One thing I can let go of is…</option>
+              <option>What am I grateful for today?</option>
+            </select>
+          </div>
+
+          <div class="mood-row">
+            <label>Mood:
+              <select id="journalMood">
+                <option>😊</option><option>😐</option><option>😢</option><option>😡</option><option>😌</option>
+              </select>
+            </label>
+          </div>
+
+          <textarea id="journalText" rows="5" placeholder="Write your entry here..."></textarea>
+          <div class="btn-row">
+            <button class="action" id="journalSave">Save Entry</button>
+            <button class="action ghost" id="journalClear">Clear</button>
+          </div>
+
+          <div class="log-list">
+            <h4>Journal History</h4>
+            <ul id="journalLog"></ul>
+          </div>
+        </div>
+
+        <!-- 4) Mindfulness Meditation -->
+        <div id="panel-mindfulness" class="strategy-panel">
+          <h3>Mindfulness Meditation</h3>
+          <p class="muted">Goal: Stay present without judgment.</p>
+
+          <div class="info">
+            Mindfulness helps you stay present and reduce rumination. Choose a focus and duration below.
+          </div>
+
+          <div class="mind-row">
+            <label>Session:
+              <select id="mindType">
+                <option value="breath">Mindful Breathing</option>
+                <option value="body">Body Scan</option>
+                <option value="focus">Focus & Clarity</option>
+                <option value="sleep">Relax for Sleep</option>
+              </select>
+            </label>
+            <label>Duration (min):
+              <input type="number" id="mindMinutes" value="10" min="3" max="45" />
+            </label>
+          </div>
+
+          <div class="btn-row">
+            <button class="action" id="mindStart">Start</button>
+            <button class="action ghost" id="mindPause">Pause</button>
+            <button class="action ghost" id="mindReset">Reset</button>
+            <label class="inline"><input type="checkbox" id="mindAudio"> Soft ambience</label>
+            <button class="action outline" id="mindBookmark">★ Bookmark</button>
+          </div>
+
+          <div class="timer-line">
+            <div id="mindProgress"></div>
+          </div>
+          <p class="muted small">Timer: <span id="mindTime">00:00</span></p>
+
+          <div class="log-list">
+            <h4>Mindfulness Log</h4>
+            <ul id="mindLog"></ul>
+          </div>
+
+          <div class="log-list">
+            <h4>Bookmarks</h4>
+            <ul id="mindBookmarks"></ul>
+          </div>
+        </div>
+
+        <!-- 5) Regular Physical Activity -->
+        <div id="panel-activity" class="strategy-panel">
+          <h3>Regular Physical Activity</h3>
+          <p class="muted">Goal: Lower stress hormones and boost mood.</p>
+
+          <div class="info">
+            Exercise releases endorphins that boost mood and reduce anxiety. Try short, regular sessions.
+          </div>
+
+          <div class="activity-row">
+            <label>Activity
+              <select id="actType">
+                <option>Yoga</option>
+                <option>Walking</option>
+                <option>Stretching</option>
+                <option>Dancing</option>
+                <option>Jogging</option>
+              </select>
+            </label>
+            <label>Duration (min)
+              <input type="number" id="actDuration" min="5" max="180" value="20" />
+            </label>
+            <label>Intensity
+              <select id="actIntensity">
+                <option>Light</option>
+                <option selected>Moderate</option>
+                <option>Vigorous</option>
+              </select>
+            </label>
+            <button class="action" id="actSave">Log Activity</button>
+          </div>
+
+          <div class="log-list">
+            <h4>Activity Log</h4>
+            <ul id="actLog"></ul>
+          </div>
+
+          <canvas id="actChart" width="600" height="260" class="card"></canvas>
+        </div>
+
+        <!-- 6) Time Management Tips -->
+        <div id="panel-time" class="strategy-panel">
+          <h3>Time Management Tips</h3>
+          <p class="muted">Goal: Prevent overwhelm with better planning.</p>
+
+          <ul class="tips">
+            <li>Set 3 priorities for the day.</li>
+            <li>Avoid multitasking; batch similar tasks.</li>
+            <li>Use the Pomodoro technique (25m focus, 5m break).</li>
+            <li>Plan breaks and protect your energy.</li>
+          </ul>
+
+          <div class="pomodoro card">
+            <h4>Pomodoro Timer</h4>
+            <div class="pom-time">
+              <span id="pomLabel">Focus</span> — <span id="pomClock">25:00</span>
+            </div>
+            <div class="btn-row">
+              <button class="action" id="pomStart">Start</button>
+              <button class="action ghost" id="pomPause">Pause</button>
+              <button class="action ghost" id="pomReset">Reset</button>
+            </div>
+            <label class="inline"><input type="checkbox" id="pomSound"> Chime at switches</label>
+          </div>
+
+          <div class="log-list">
+            <h4>Daily Completion</h4>
+            <p>You completed <strong><span id="tmDone">0</span></strong> Pomodoros today.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🎮 Gamified Page (Relaxation) -->
+    <section id="gamifiedPage" class="hidden">
+      <h2>Gamified Relaxation</h2>
+      <p id="gameMessage">Click below to relax!</p>
+  <button id="earnPointsBtn" class="action">Breathe In & Out</button>
+      <p class="points">Points: <span id="points">0</span></p>
+
+      <!-- 🪷 Calm Click Challenge -->
+      <div id="calmClickGame" class="game-section">
+        <h4>Calm Click Challenge</h4>
+        <p>Click the button calmly. Fast clicks reduce points — slow clicks earn calm points!</p>
+        <button id="calmButton">Click Calmly</button>
+        <p>Calm Points: <span id="calmPoints">0</span></p>
+        <p id="clickFeedback"></p>
+      </div>
+
+      <!-- More Relaxation Games -->
+      <div class="relaxation-games">
+        <h3 style="color:#fff;">Try More Relaxation Games</h3>
+
+        <!-- 🫧 Bubble Pop Calm Game -->
+        <div id="bubbleGame" class="game-section">
+          <h4>Bubble Pop Calm</h4>
+          <p>Click the floating bubbles to earn calm points!</p>
+          <div id="bubbleContainer"></div>
+          <p>Points: <span id="bubblePoints">0</span></p>
+        </div>
+
+        <!-- 🎨 Color Breathing Visualization -->
+        <div id="colorGame" class="game-section">
+          <h4>Color Breathing Visualization</h4>
+          <p>Follow the color changes — Inhale on blue 💙, exhale on purple 💜</p>
+          <div id="colorCircle"></div>
+          <button id="startColorGame">Start</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reminder Section -->
+    <section id="reminderPage" class="hidden">
+      <h2>Reminders & Tasks</h2>
+      
+      <!-- Add Reminder Form -->
+      <div class="reminder-form card">
+        <h3>Add New Reminder</h3>
+        <div class="form-group">
+          <input type="text" id="reminderInput" placeholder="What would you like to be reminded about?" />
+          <div id="reminderSuggestions" class="suggestions-box"></div>
+        </div>
+        <div class="form-row">
+          <input type="time" id="reminderTime" />
+          <select id="reminderPriority">
+            <option value="low">Low Priority</option>
+            <option value="medium" selected>Medium Priority</option>
+            <option value="high">High Priority</option>
+          </select>
+          <button id="addReminderBtn" class="action">Add Reminder</button>
+        </div>
+        <button id="preloadIdeasBtn" class="outline">Need ideas?</button>
+      </div>
+
+      <!-- Smart Suggestions -->
+      <div id="smartTip" class="tip-box" hidden></div>
+
+      <!-- Reminders List -->
+      <div class="reminders-container">
+        <h3>Your Reminders</h3>
+        <div id="reminderList" class="reminder-list"></div>
+      </div>
+    </section>
+
+    <!-- Peer Support -->
+    <section id="peerSupportPage" class="hidden">
+      <h2>Peer Support Community</h2>
+      <textarea id="postInput" rows="3" placeholder="Share your thoughts..."></textarea>
+  <button id="addPostBtn" class="action">Post</button>
+      <ul id="postsList">
+        <li>Plan, Don't Came</li>
+        <p>– Break your syllabus into smaller chunks and study a little each day.</p>
+        <p> – Use a simple planner or timer (Pomodoro method: 25 min study, 5 min break).</p>
+        <li>Practice Deep Breathing Before Studying</li>
+        <p>– Take 3 slow deep breaths to calm your mind before opening your notes.</p>
+        <p> – Try your "Breathe In & Out" feature for 1 minute!</p>
+        <li>Use Active Recall</li>
+        <p>– Everyone has a unique study pace. Focus on your progress.</p>
+        <li>Take Micro Breaks</li>
+        <p>– Walk, stretch, or listen to music for 5–10 minutes every hour.</p>
+        <li>Stay Hydrated & Eat Light</li>
+        <p>- Proper hydration and nutrition keep your brain sharp and reduce fatigue.</p>
+        <li> Use Positive Self-Talk</li> 
+        <p>– Replace “I’ll fail” with “I’ve prepared, and I can do this.”</p>
+        <li>Sleep Matters</li>
+        <p>– Aim for 7–8 hours of rest; all-nighters reduce memory and focus.</p>
+        <li>Visualize Success</li>
+        <p>– Close your eyes and imagine yourself confidently answering the exam.</p>
+        <li>Talk About It</li>
+        <p>– Share your feelings with a friend or your peer community. Sometimes just expressing worry helps it fade.</p>
+      </ul>
+    </section>
+
+    <!-- ⏰ Reminders -->
+    <section id="reminderPage" class="hidden">
+      <h2>Smart Reminder System</h2>
+
+      <!-- Suggestions that appear while typing -->
+      <div class="suggestion-wrap">
+        <label for="reminderText">Reminder:</label>
+        <input type="text" id="reminderText" placeholder="Enter reminder (e.g., Drink a glass of water 💧)" autocomplete="off"/>
+        <div id="reminderSuggestions" class="suggestions"></div>
+      </div>
+
+      <label for="reminderTime">Time:</label>
+      <input type="time" id="reminderTime" />
+      <div class="btn-row">
+        <button class="action" id="addReminderBtn">Add Reminder</button>
+        <button class="action outline" id="preloadIdeasBtn">Load Example Ideas</button>
+      </div>
+
+      <div class="smart-tip" id="smartTip" hidden></div>
+
+      <!-- Table -->
+      <div class="rem-table card">
+        <div class="rem-row rem-head">
+          <div>Reminder</div>
+          <div>Time</div>
+          <div>Status</div>
+          <div>Actions</div>
+        </div>
+        <div id="reminderList"></div>
+      </div>
+      <p class="muted small">Notifications use your browser’s permission. If blocked, you’ll still get in-app alerts.</p>
+    </section>
+
+    <!-- 📅 Time Management (Tasks) -->
+    <section id="timeManagementPage" class="hidden">
+      <h2>Time Management Center</h2>
+      <p class="muted">Goal: Optimize your time and boost productivity</p>
+
+      <!-- Daily Overview -->
+      <div class="time-overview card">
+        <h3>Today's Overview</h3>
+        <div class="overview-grid">
+          <div class="stat-box">
+            <span id="focusTime">0</span>
+            <label>Hours Focused</label>
+          </div>
+          <div class="stat-box">
+            <span id="pomCount">0</span>
+            <label>Pomodoros</label>
+          </div>
+          <div class="stat-box">
+            <span id="tasksDone">0</span>
+            <label>Tasks Done</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Task Management -->
+      <div class="task-management card">
+        <h3>Task Management</h3>
+        <div class="task-input">
+          <input type="text" id="taskInput" placeholder="Add a new task...">
+          <select id="taskPriority">
+            <option value="high">High Priority</option>
+            <option value="medium" selected>Medium Priority</option>
+            <option value="low">Low Priority</option>
+          </select>
+          <input type="time" id="taskTime">
+          <button id="addTaskBtn" class="action">Add Task</button>
+        </div>
+        
+        <div class="task-lists">
+          <div class="task-column">
+            <h4>To Do</h4>
+            <ul id="todoList" class="task-list"></ul>
+          </div>
+          <div class="task-column">
+            <h4>In Progress</h4>
+            <ul id="inProgressList" class="task-list"></ul>
+          </div>
+          <div class="task-column">
+            <h4>Done</h4>
+            <ul id="doneList" class="task-list"></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pomodoro removed from Time Management page (kept in Stress tips) -->
+
+      <!-- Time Management Tips -->
+      <div class="tips-section card">
+        <h3>Productivity Tips</h3>
+        <div class="tips-grid">
+          <div class="tip-card">
+            <h4>🎯 Focus First</h4>
+            <p>Work on your most important task during your peak energy hours.</p>
+          </div>
+          <div class="tip-card">
+            <h4>⏱️ Time Blocks</h4>
+            <p>Group similar tasks together and work in focused time blocks.</p>
+          </div>
+          <div class="tip-card">
+            <h4>🔄 Take Breaks</h4>
+            <p>Regular breaks help maintain focus and prevent burnout.</p>
+          </div>
+          <div class="tip-card">
+            <h4>📋 Plan Ahead</h4>
+            <p>Set your top 3 priorities for tomorrow at the end of each day.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Time Analytics -->
+      <div class="analytics-section card">
+        <h3>Time Analytics</h3>
+        <div class="chart-container">
+          <canvas id="timeChart"></canvas>
+        </div>
+        <div class="analytics-summary">
+          <div class="stat">
+            <label>Weekly Focus Hours</label>
+            <span id="weeklyFocus">0</span>
+          </div>
+          <div class="stat">
+            <label>Most Productive Day</label>
+            <span id="productiveDay">-</span>
+          </div>
+          <div class="stat">
+            <label>Task Completion Rate</label>
+            <span id="completionRate">0%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./js/main.js"></script>
+  <!-- legacy global time.js removed: using modular productivity scripts in `main.js` -->
+ 
+
+</body>
+</html>
+

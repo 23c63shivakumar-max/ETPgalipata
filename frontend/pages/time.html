@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time Management & Pomodoro Tracker</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/time.css" />
+</head>
+<body>
+  <header>
+    <h1>⏰ Time Management Dashboard</h1>
+  </header>
+
+  <main>
+    <!-- Task Section -->
+    <section class="tasks">
+      <h2>📝 Task Manager</h2>
+      <div class="task-inputs">
+        <input id="taskInput" type="text" placeholder="Enter new task..." />
+        <select id="taskPriority">
+          <option value="low">Low Priority</option>
+          <option value="medium" selected>Medium Priority</option>
+          <option value="high">High Priority</option>
+        </select>
+        <input id="taskTime" type="time" />
+        <button id="addTaskBtn">Add Task</button>
+      </div>
+
+      <div class="task-columns">
+        <div class="column">
+          <h3>📋 To Do</h3>
+          <ul id="todoList" class="task-list"></ul>
+        </div>
+        <div class="column">
+          <h3>🔄 In Progress</h3>
+          <ul id="inProgressList" class="task-list"></ul>
+        </div>
+        <div class="column">
+          <h3>✅ Done</h3>
+          <ul id="doneList" class="task-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pomodoro Section -->
+    <section class="pomodoro">
+      <h2>🍅 Pomodoro Timer</h2>
+      <div class="pom-container">
+        <div id="timerProgress"></div>
+        <div id="pomClock">25:00</div>
+        <div id="pomLabel">Focus Time</div>
+        
+        <div class="pom-controls">
+          <select id="pomSession">
+            <option value="25">25 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="45">45 minutes</option>
+          </select>
+          <label>
+            <input type="checkbox" id="pomSound" checked />
+            Enable Sound
+          </label>
+        </div>
+
+        <div class="buttons">
+          <button id="pomStart">▶ Start</button>
+          <button id="pomPause" class="hidden">⏸ Pause</button>
+          <button id="pomReset">🔁 Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="stats">
+      <h2>📊 Productivity Stats</h2>
+      <div class="stats-grid">
+        <div>
+          <span>⌛ Focus Hours</span>
+          <span id="focusTime">0</span>
+        </div>
+        <div>
+          <span>🍅 Pomodoros</span>
+          <span id="pomCount">0</span>
+        </div>
+        <div>
+          <span>✅ Tasks Done</span>
+          <span id="tasksDone">0</span>
+        </div>
+        <div>
+          <span>📅 Weekly Hours</span>
+          <span id="weeklyFocus">0</span>
+        </div>
+        <div>
+          <span>🌟 Best Day</span>
+          <span id="productiveDay">-</span>
+        </div>
+        <div>
+          <span>📈 Completion</span>
+          <span id="completionRate">0%</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Productivity Tracker | Made with ❤️ for Better Time Management</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module" src="../js/productivity/time.js"></script>
+</body>
+</html>
