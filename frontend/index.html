@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -596,7 +597,81 @@
     </section>
   </main>
 
+  <!-- 🤖 Floating Chatbot Button -->
+<button id="chatbotBtn" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #4a90e2;
+  color: #fff;
+  font-size: 28px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 9999;
+">💬</button>
+
+<!-- 🤖 Chatbot Window -->
+<div id="chatbotWindow" style="
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 320px;
+  height: 420px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9999;
+">
+  
+  <!-- Header -->
+  <div style="
+    background: #4a90e2;
+    color: rgb(20, 18, 18);
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+  ">
+    StressGPT Assistant
+  </div>
+
+  <!-- Messages -->
+  <div id="chatMessages" style="
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    font-family: Arial;
+    font-size: 14px;
+  "></div>
+
+  <!-- Input -->
+  <div style="padding: 10px; display: flex; gap: 5px;">
+    <input id="chatInput" type="text" placeholder="Type here..." style="
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #161313;
+      border-radius: 8px;
+    ">
+    <button id="sendChat" style="
+      padding: 8px 12px;
+      background: #4a90e2;
+      color: rgb(32, 22, 22);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    ">Send</button>
+  </div>
+</div>
+
   <script type="module" src="./js/main.js"></script>
+  <script src="./js/chatbot.js"></script>
+
   <!-- legacy global time.js removed: using modular productivity scripts in `main.js` -->
  
 
